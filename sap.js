@@ -15,8 +15,8 @@ jQuery(document).ready(function(){
     jQuery('#newterm').click(function(event){
         event.preventDefault();
         var newFieldSet = jQuery(this).parent().find('fieldset:last').clone();
-        //get the number of fieldsets
-        var numFieldSets = jQuery('fieldset').length + 1; //add plus 1, becuase only CS dorks care about things starting at 0
+        //add plus 1, becuase while you and I start counting at 0, most folks start at 1
+        var numFieldSets = jQuery('fieldset').length + 1;
         newFieldSet.find('legend').text('Term ' + numFieldSets);
         newFieldSet.find('tr:gt(4)').remove();
         newFieldSet.find('tr').each(function(){
