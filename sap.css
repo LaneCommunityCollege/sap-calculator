@@ -1,0 +1,27 @@
+#insttable input {
+    width: 7em;
+}
+
+#region-content fieldset tbody tr:nth-child(2n) {
+    background-color: transparent;
+}
+
+table input{
+    width: 5em;
+}
+.bad {
+    background-color:#fc6666;
+    border-radius: 3px;
+	border: red groove thin;
+    padding: 0 0.5em;
+}
+.good {
+    background-color: #c0ffcb;
+    border-radius: 3px;
+	border: green groove thin;
+    padding: 0 0.5em;
+}
+
+#courses input {
+    background-color: transparent;
+}
