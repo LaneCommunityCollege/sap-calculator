@@ -2,11 +2,11 @@
     width: 7em;
 }
 
-#region-content fieldset tbody tr:nth-child(2n) {
+#sap-courses fieldset tbody tr:nth-child(2n) {
     background-color: transparent;
 }
 
-table input{
+#sap-form table input{
     width: 5em;
 }
 .bad {
@@ -22,6 +22,6 @@ table input{
     padding: 0 0.5em;
 }
 
-#courses input {
+#sap-courses input {
     background-color: transparent;
 }

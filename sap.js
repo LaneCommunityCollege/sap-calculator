@@ -36,14 +36,14 @@ jQuery(document).ready(function(){
         calculate();
     });
 
-    jQuery('#sapform input').live('keyup', function(){ calculate()});
+    jQuery('#sap-form input').live('keyup', function(){ calculate()});
 
-    jQuery('#sapform input[type="checkbox"]').live('click', function(){ calculate()});
+    jQuery('#sap-form input[type="checkbox"]').live('click', function(){ calculate()});
 
     function calculate(){
         // get an associative array of just the values.
         var values = {};
-        jQuery('#sapform :input').each(function() {
+        jQuery('#sap-form :input').each(function() {
             values[this.name] = jQuery(this).val().toLowerCase();
         });
         
@@ -109,7 +109,7 @@ jQuery(document).ready(function(){
     
         //loop through rows of each term, adding (grade, credits, and computing points)
         i = 0;
-        jQuery('#courses fieldset').each(function(){
+        jQuery('#sap-courses fieldset').each(function(){
             var termpoints = 0;
             var termpassed = 0;
             var termattempted = 0;
