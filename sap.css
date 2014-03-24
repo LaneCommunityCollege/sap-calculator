@@ -27,3 +27,28 @@
 #sap-courses input {
     background-color: transparent;
 }
+
+#sap-understand td, #sap-understand th{
+    text-align: center;
+    vertical-align: middle; 
+}
+
+/* Following styles are provided through our Drupal theme, but are
+   provided here because they're particularly useful. element-invisible, 
+   for example, is used to make labels are that are readable by screenreaders.*/
+
+.element-invisible {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute !important;
+}
+
+.notice {
+    background-color: #FFF7B5;
+    border: 2px solid #EAB01F;
+    border-radius: 10px;
+    margin-left: 2px !important;
+    margin-right: 2px !important;
+    padding: 6px;
+}
