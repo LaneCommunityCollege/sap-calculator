@@ -10,14 +10,14 @@
     background-color:#fc6666;
     border-radius: 3px;
 	border: red groove thin;
-    padding: 0 0.5em;
+    padding: 0 .5em;
 }
 
 .good {
     background-color: #c0ffcb;
     border-radius: 3px;
 	border: green groove thin;
-    padding: 0 0.5em;
+    padding: 0 .5em;
 }
 
 #sap-courses fieldset tbody tr:nth-child(2n) {
@@ -36,7 +36,6 @@
 /* Following styles are provided through our Drupal theme, but are
    provided here because they're particularly useful. element-invisible, 
    for example, is used to make labels are that are readable by screenreaders.*/
-
 .element-invisible {
     clip: rect(1px, 1px, 1px, 1px);
     height: 1px;
