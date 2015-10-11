@@ -11,9 +11,9 @@ jQuery(document).on('click', '.delete-button', function(event){
     calculate();
 });
 
-jQuery(document).on('keyup', '#sap-form input', function(){ calculate()});
+jQuery(document).on('keyup', '#sap-form input', function(){ calculate();});
 
-jQuery(document).on('click', '#sap-form input[type="checkbox"]', function(){ calculate()});
+jQuery(document).on('click', '#sap-form input[type="checkbox"]', function(){ calculate();});
 
 jQuery('#fakebutton').click(function(event){
     event.preventDefault();
@@ -45,7 +45,7 @@ function calculate(){
         values[this.name] = jQuery(this).val().toLowerCase();
     });
     
-    var gpatable = {}
+    var gpatable = {};
     gpatable['a+'] = 4.3;
     gpatable['a'] = 4.0;
     gpatable['a-'] = 3.7;
@@ -66,23 +66,23 @@ function calculate(){
     }
     else if(parseFloat(values['instattemptedhrs']) != values['instattemptedhrs'] || parseFloat(values['instpassedhrs']) != values['instpassedhrs']){
         jQuery('#totalInstError').text("Make sure you're only using numbers").show();
-        jQuery('#totalInstError').css("background-color","#fc6666")
+        jQuery('#totalInstError').css("background-color","#fc6666");
     }
     else{
         jQuery('#totalInstError').hide();
-        jQuery('#totalInstError').css("background-color","white")
+        jQuery('#totalInstError').css("background-color","white");
     }
     if(parseFloat(values['transattemptedhrs']) < parseFloat(values['transpassedhrs'])){
         jQuery('#totalTransError').text("Passed can't be greater than attempted!").show();
-        jQuery('#totalTransError').css("background-color","#fc6666")
+        jQuery('#totalTransError').css("background-color","#fc6666");
     }
     else if(parseFloat(values['transattemptedhrs']) != values['transattemptedhrs'] || parseFloat(values['transpassedhrs']) != values['transpassedhrs']){
         jQuery('#totalTransError').text("Make sure you're only using numbers").show();
-        jQuery('#totalTransError').css("background-color","#fc6666")
+        jQuery('#totalTransError').css("background-color","#fc6666");
     }
     else{
         jQuery('#totalTransError').hide();
-        jQuery('#totalTransError').css("background-color","white")
+        jQuery('#totalTransError').css("background-color","white");
     }
 
     totalattempted = parseFloat(values['instattemptedhrs']) + parseFloat(values['transattemptedhrs']);
@@ -118,7 +118,7 @@ function calculate(){
             usergrade = jQuery(this).find('td:nth-child(3) input').val().toLowerCase();
             usercredits = jQuery(this).find('td:nth-child(4) input').val();
             //Make sure the row validates
-            if(usergrade != '' && usercredits != '' && parseFloat(usercredits) == usercredits && jQuery.inArray(usergrade, validAttempted) >= 0 && parseFloat(usercredits)>0){
+            if(usergrade !== '' && usercredits !== '' && parseFloat(usercredits) == usercredits && jQuery.inArray(usergrade, validAttempted) >= 0 && parseFloat(usercredits)>0){
                 //set this to a white row
                 jQuery(this).css("background-color","white");
                 lettergrade = gpatable[usergrade];
@@ -139,7 +139,7 @@ function calculate(){
             else{
                 empty = true;
                 jQuery(this).find('input:gt(1)').each(function(){
-                    if(jQuery(this).val() != ''){
+                    if(jQuery(this).val() !== ''){
                         empty = false;
                     }
                 });
