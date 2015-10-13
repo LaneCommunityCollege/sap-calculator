@@ -21,19 +21,18 @@
 }
 
 #sap-courses {
-  fieldset tbody tr:nth-child(2n) {
-    background-color: transparent;
-  }
-
+  fieldset tbody tr:nth-child(2n),
   input {
     background-color: transparent;
   }
 }
 
-#sap-understand td,
-#sap-understand th {
-  text-align: center;
-  vertical-align: middle; 
+#sap-understand {
+  td,
+  th {
+    text-align: center;
+    vertical-align: middle; 
+  }
 }
 
 /* Following styles are provided through our Drupal theme, but are
