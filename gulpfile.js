@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
     rename = require('gulp-rename'),
-    minifyCSS = require('gulp-minify-css'),
+    minifyCSS = require('gulp-clean-css'),
     uglify = require('gulp-uglify'),
     runSequence = require('run-sequence'),
     del = require('del'),
