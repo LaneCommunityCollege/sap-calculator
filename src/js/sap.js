@@ -163,6 +163,15 @@ function calculate(){
         }
         else
             $(this).find('.gpaterm').text("Your projected GPA for this term is ");
+        // Block for APS, rather than SAP
+        if(avg < 2.0 || termpassed / termattempted < 0.67){
+            console.log("do not meet");
+            $(this).find('.aps').text("You do not meet APS for this term");
+        }
+        else {
+            console.log("meet");
+            $(this).find('.aps').text("You meet APS for this term");
+        }
     });
     if(i + totalattempted + totalpassed > 0){
         //figure out Projected Atttempted Hours
