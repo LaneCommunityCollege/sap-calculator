@@ -32,9 +32,12 @@ $('#newterm').click(function(event){
         $(this).find('input:first').val('Course Name');
         $(this).find('input:nth-child(2)').removeAttr('checked');
     });
-
+    //hide the new aps row
+    newFieldSet.find('.aps').text("").removeClass('good bad').hide();
+    
     $(this).parent().find('fieldset:last').after(newFieldSet);
     //note that this is now a new fieldset
+
     calculate();
 });
 
@@ -159,10 +162,11 @@ function calculate(){
             $(this).find('.gpaterm').text("Your projected GPA for this term is ");
         // Block for APS, rather than SAP
         if(avg < 2.0 || termpassed / termattempted < 0.67){
-            $(this).find('.aps').removeClass('good bad').addClass('bad').text("You do not meet APS for this term");
+            $(this).find('.aps').show().removeClass('good bad').addClass('bad').text("You do not meet APS for this term");
         }
-        else {
-            $(this).find('.aps').removeClass('good bad').addClass('good').text("You meet APS for this term");
+        //Be explicit about the elseif, because we don't want to show if there's no courses listed
+        else if(avg >= 2.0 || termpassed / termattempted >= 0.67) {
+            $(this).find('.aps').show().removeClass('good bad').addClass('good').text("You meet APS for this term");
         }
     });
     if(i + totalattempted + totalpassed > 0){

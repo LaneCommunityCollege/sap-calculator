@@ -33,6 +33,10 @@
   @extend .bad;
 }
 
+.aps {
+  display: none;
+}
+
 #sap-courses {
   fieldset tbody tr:nth-child(2n),
   input {
