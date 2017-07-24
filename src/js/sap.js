@@ -107,6 +107,7 @@ function calculate(){
         var termpassed = 0;
         var termattempted = 0;
         var gpacredits = 0;
+        var apspassed = 0;
         $(this).find('.gpaterm').text("Your projected GPA for this term is ");
         $(this).find('tr:gt(0)').each(function(){
             repeated = $(this).find('td:nth-child(2) input').is(':checked');
@@ -121,6 +122,9 @@ function calculate(){
                 //if that grade counts as a passed grade, let's add it to our projected passed hours
                 if($.inArray(usergrade, validPassed) >= 0 && !repeated){
                     termpassed += credits;
+                }
+                if($.inArray(usergrade, validPassed) >= 0){
+                    apspassed += credits;
                 }
                 if($.inArray(usergrade, validAttempted) >= 0){
                     termattempted += credits;   
@@ -159,11 +163,11 @@ function calculate(){
         else
             $(this).find('.gpaterm').text("Your projected GPA for this term is ");
         // Block for APS, rather than SAP
-        if(avg < 2.0 || termpassed / termattempted < 0.67){
+        if(avg < 2.0 || apspassed / termattempted < 0.67){
             $(this).find('.aps').show().removeClass('good bad').addClass('bad').text("You do not meet APS for this term");
         }
         //Be explicit about the elseif, because we don't want to show if there's no courses listed
-        else if(avg >= 2.0 || termpassed / termattempted >= 0.67) {
+        else if(avg >= 2.0 || apspassed / termattempted >= 0.67) {
             $(this).find('.aps').show().removeClass('good bad').addClass('good').text("You meet APS for this term");
         }
     });
