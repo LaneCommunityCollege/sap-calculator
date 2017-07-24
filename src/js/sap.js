@@ -62,27 +62,21 @@ function calculate(){
 
     if(parseFloat(values['instattemptedhrs']) < parseFloat(values['instpassedhrs'])){
         $('#totalInstError').text("Passed can't be greater than attempted!").show()
-        $('#totalInstError').css("background-color","#fc6666");
     }
     else if(parseFloat(values['instattemptedhrs']) != values['instattemptedhrs'] || parseFloat(values['instpassedhrs']) != values['instpassedhrs']){
         $('#totalInstError').text("Make sure you're only using numbers").show();
-        $('#totalInstError').css("background-color","#fc6666");
     }
     else{
         $('#totalInstError').hide();
-        $('#totalInstError').css("background-color","white");
     }
     if(parseFloat(values['transattemptedhrs']) < parseFloat(values['transpassedhrs'])){
         $('#totalTransError').text("Passed can't be greater than attempted!").show();
-        $('#totalTransError').css("background-color","#fc6666");
     }
     else if(parseFloat(values['transattemptedhrs']) != values['transattemptedhrs'] || parseFloat(values['transpassedhrs']) != values['transpassedhrs']){
         $('#totalTransError').text("Make sure you're only using numbers").show();
-        $('#totalTransError').css("background-color","#fc6666");
     }
     else{
         $('#totalTransError').hide();
-        $('#totalTransError').css("background-color","white");
     }
 
     totalattempted = parseFloat(values['instattemptedhrs']) + parseFloat(values['transattemptedhrs']);
