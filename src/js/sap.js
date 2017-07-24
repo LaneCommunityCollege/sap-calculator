@@ -36,8 +36,6 @@ $('#newterm').click(function(event){
     newFieldSet.find('.aps').text("").removeClass('good bad').hide();
     
     $(this).parent().find('fieldset:last').after(newFieldSet);
-    //note that this is now a new fieldset
-
     calculate();
 });
 
