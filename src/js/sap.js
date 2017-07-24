@@ -34,7 +34,6 @@ $('#newterm').click(function(event){
     });
 
     $(this).parent().find('fieldset:last').after(newFieldSet);
-    //note that this is now a new fieldset
     calculate();
 });
 
