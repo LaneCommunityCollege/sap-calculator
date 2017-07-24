@@ -2,8 +2,27 @@
   width: 7em;
 }
 
-#sap-form table input {
-  width: 5em;
+#sap-form {
+  table {
+    tbody {
+      th {
+        background-color: transparent !important;
+      }
+    }
+
+    tr {
+      background-color: transparent !important;
+    }
+
+    th {
+      border: none;
+      font-weight: bold;
+    }
+
+    input {
+      width: 5em;
+    }
+  }
 }
 
 .alert {
