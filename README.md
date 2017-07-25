@@ -6,6 +6,8 @@ We have an [example](http://www.lanecc.edu/finaid/sap-calculator) on our site.
 
 Though we've licensed this project under the MIT License, we'd appreciate attribution!
 
+This calculator will also do Academic Progress Standards Calculation, based on Lane's APS Standards. The APS branch contains that logic, while the master branch is strictly for SAP.
+
 Use
 ---
 Though you're encouraged to follow the development instructions below, minimized files are available in the `dist` directory.
