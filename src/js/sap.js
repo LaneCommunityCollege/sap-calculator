@@ -147,10 +147,10 @@ function calculate(){
         projectedGPAHours += gpacredits;
         avg = termpoints / gpacredits;
         if(termattempted > 0){
-            $(this).find('.completionterm').text("Your projected Completion Rate for this term is " + ((termpassed / termattempted) * 100).toFixed(2) + "%");
+            $(this).find('.completionterm').text("Your projected completion rate for this term is " + ((termpassed / termattempted) * 100).toFixed(2) + "%");
         }
         else
-            $(this).find('.completionterm').text("Your projected Completion Rate for this term is ");
+            $(this).find('.completionterm').text("Your projected completion rate for this term is ");
         if(gpacredits >0){
             $(this).find('.gpaterm').text("Your projected GPA for this term is " + avg.toFixed(2));
         }
