@@ -2,13 +2,12 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     minifyCSS = require('gulp-clean-css'),
     uglify = require('gulp-uglify'),
-    runSequence = require('run-sequence'),
     del = require('del'),
     wrap = require('gulp-wrap'),
     compass = require('gulp-compass');
 
 gulp.task('compass', function() {
-  return gulp.src('src/scss/mm.scss')
+  return gulp.src('src/scss/sap.scss')
     .pipe(compass({
       css: 'tmp',
       sass: 'src/scss/',
@@ -36,11 +35,7 @@ gulp.task('copy-html', function(){
 });
 
 gulp.task('clean', function(cb) {
-  del('tmp', cb); 
+  return del('tmp', cb); 
 });
 
-gulp.task('build', function(cb){
-  runSequence(['compass', 'copy-html'],
-              ['minify-css', 'compress'],
-               'clean'); 
-});
+gulp.task('build', ['compass', 'copy-html', 'minify-css', 'compress', 'clean']); 
