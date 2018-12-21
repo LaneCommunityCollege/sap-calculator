@@ -38,4 +38,4 @@ gulp.task('clean', function(cb) {
   return del('tmp', cb); 
 });
 
-gulp.task('build', ['compass', 'copy-html', 'minify-css', 'compress', 'clean']); 
+gulp.task('build', gulp.series('compass', 'copy-html', 'minify-css', 'compress', 'clean')); 
