@@ -15,28 +15,6 @@ $(document).on('keyup', '#sap-form input', function(){ calculate();});
 
 $(document).on('click', '#sap-form input[type="checkbox"]', function(){ calculate();});
 
-$('#fakebutton').click(function(event){
-    event.preventDefault();
-    calculate();
-});
-
-$('#newterm').click(function(event){
-    event.preventDefault();
-    var newFieldSet = $(this).parent().find('fieldset:last').clone();
-    //add plus 1, becuase while you and I start counting at 0, most folks start at 1
-    var numFieldSets = $('fieldset').length + 1;
-    newFieldSet.find('legend').text('Term ' + numFieldSets);
-    newFieldSet.find('tr:gt(4)').remove();
-    newFieldSet.find('tr').each(function(){
-        $(this).find('input[type="text"]').val('');
-        $(this).find('input:first').val('Course Name');
-        $(this).find('input:nth-child(2)').removeAttr('checked');
-    });
-
-    $(this).parent().find('fieldset:last').after(newFieldSet);
-    calculate();
-});
-
 function calculate(){
     // get an associative array of just the values.
     var values = {};
@@ -59,137 +37,72 @@ function calculate(){
     gpatable['d-'] = 0.7;
     gpatable['f'] = 0.0;
 
-    if(parseFloat(values['instattemptedhrs']) < parseFloat(values['instpassedhrs'])){
-        $('#totalInstError').text("Passed can't be greater than attempted!").show()
-    }
-    else if(parseFloat(values['instattemptedhrs']) != values['instattemptedhrs'] || parseFloat(values['instpassedhrs']) != values['instpassedhrs']){
-        $('#totalInstError').text("Make sure you're only using numbers").show();
-    }
-    else{
-        $('#totalInstError').hide();
-    }
-    if(parseFloat(values['transattemptedhrs']) < parseFloat(values['transpassedhrs'])){
-        $('#totalTransError').text("Passed can't be greater than attempted!").show();
-    }
-    else if(parseFloat(values['transattemptedhrs']) != values['transattemptedhrs'] || parseFloat(values['transpassedhrs']) != values['transpassedhrs']){
-        $('#totalTransError').text("Make sure you're only using numbers").show();
-    }
-    else{
-        $('#totalTransError').hide();
-    }
-
-    totalattempted = parseFloat(values['instattemptedhrs']) + parseFloat(values['transattemptedhrs']);
-    totalpassed = parseFloat(values['instpassedhrs']) + parseFloat(values['transpassedhrs']);
-    instgpahours = parseFloat(values['instgpahrs']);
-    qualpoints = parseFloat(values['instqualpoints']);
-
-    $('#totalAttempted').text(totalattempted);
-    $('#totalPassed').text(totalpassed);
-    if(qualpoints > 0 && instgpahours > 0){
-        $('#curGPA').html("<strong>Current Cumulative GPA:</strong> " + (qualpoints / instgpahours).toFixed(3));
-    }
-
     //grades that count toward passed hours
     validPassed = ['a', 'b', 'c', 'd', 'a+', 'b+', 'c+', 'd+','a-', 'b-', 'c-', 'd-', 'p'];
     validGPAgrades = ['a', 'b', 'c', 'd', 'a+', 'b+', 'c+', 'd+','a-', 'b-', 'c-', 'd-', 'f'];//also counts as quality point grades
     validAttempted = ['a', 'b', 'c', 'd', 'a+', 'b+', 'c+', 'd+','a-', 'b-', 'c-', 'd-', 'p', 'nc', 'np', 'i','u','f','*'];
-    projectedPassed = totalpassed;
-    projectedAttempted = totalattempted;
-    projectedPoints = 0;
-    projectedGPAHours = 0;
 
-    //loop through rows of each term, adding (grade, credits, and computing points)
-    i = 0;
-    $('#sap-courses fieldset').each(function(){
-        var termpoints = 0;
-        var termpassed = 0;
-        var termattempted = 0;
-        var gpacredits = 0;
-        $(this).find('.gpaterm').text("Your projected GPA for this term is ");
-        $(this).find('tr:gt(0)').each(function(){
-            repeated = $(this).find('td:nth-child(2) input').is(':checked');
-            usergrade = $(this).find('td:nth-child(3) input').val().toLowerCase();
-            usercredits = $(this).find('td:nth-child(4) input').val();
-            //Make sure the row validates
-            if(usergrade !== '' && usercredits !== '' && parseFloat(usercredits) == usercredits && $.inArray(usergrade, validAttempted) >= 0 && parseFloat(usercredits)>0){
-                //set this to a white row
-                $(this).css("background-color","white");
-                lettergrade = gpatable[usergrade];
-                credits = parseFloat(usercredits);
-                //if that grade counts as a passed grade, let's add it to our projected passed hours
-                if($.inArray(usergrade, validPassed) >= 0 && !repeated){
-                    termpassed += credits;
-                }
-                if($.inArray(usergrade, validAttempted) >= 0){
-                    termattempted += credits;   
-                }
-                if($.inArray(usergrade, validGPAgrades) >= 0){
-                    termpoints += lettergrade * credits;
-                    gpacredits += credits;
-                }
-                i++;
+    var termpoints = 0;
+    var termpassed = 0;
+    var termattempted = 0;
+    var gpacredits = 0;
+    $('#sap-courses table').find('.gpaterm').text("Your projected GPA for this term is ");
+    $('#sap-courses table').find('tr:gt(0)').each(function(){
+        repeated = $(this).find('td:nth-child(2) input').is(':checked');
+        usergrade = $(this).find('td:nth-child(3) input').val().toLowerCase();
+        usercredits = $(this).find('td:nth-child(4) input').val();
+        //Make sure the row validates
+        if(usergrade !== '' && usercredits !== '' && parseFloat(usercredits) == usercredits && $.inArray(usergrade, validAttempted) >= 0 && parseFloat(usercredits)>0){
+            //set this to a white row
+            $(this).css("background-color","white");
+            lettergrade = gpatable[usergrade];
+            credits = parseFloat(usercredits);
+            //if that grade counts as a passed grade, let's add it to our projected passed hours
+            if($.inArray(usergrade, validPassed) >= 0 && !repeated){
+                termpassed += credits;
             }
-            else{
-                empty = true;
-                $(this).find('input:gt(1)').each(function(){
-                    if($(this).val() !== ''){
-                        empty = false;
-                    }
-                });
-                if(!empty){
-                    $(this).css("background-color","#fc6666");
-                }
+            if($.inArray(usergrade, validAttempted) >= 0){
+                termattempted += credits;   
             }
-        });
-        projectedPassed += termpassed;
-        projectedAttempted += termattempted;
-        projectedPoints += termpoints;
-        projectedGPAHours += gpacredits;
-        avg = termpoints / gpacredits;
-        if(termattempted > 0){
-            $(this).find('.completionterm').text("Your projected completion rate for this term is " + ((termpassed / termattempted) * 100).toFixed(2) + "%");
-        }
-        else
-            $(this).find('.completionterm').text("Your projected completion rate for this term is ");
-        if(gpacredits >0){
-            $(this).find('.gpaterm').text("Your projected GPA for this term is " + avg.toFixed(2));
-        }
-        else
-            $(this).find('.gpaterm').text("Your projected GPA for this term is ");
-    });
-    if(i + totalattempted + totalpassed > 0){
-        //figure out Projected Atttempted Hours
-        $('#resultTotalAttempted').text(projectedAttempted);
-        //figure out Projected Passed Hours
-        $('#resultTotalPassed').text(projectedPassed);
-        //display projected completion rate
-        finalcompletionrate = (projectedPassed / projectedAttempted) * 100;
-        $('#resultCompletionRate').text(finalcompletionrate.toFixed(2) + "%");
-        if((projectedGPAHours + instgpahours) > 0){
-            finalgpa = (projectedPoints + qualpoints) / (projectedGPAHours + instgpahours);
-            $('#resultNewGPA').text(finalgpa.toFixed(3));
-        }
-        if(projectedAttempted < 17){
-            if(finalcompletionrate >= 67.0){
-                statusmessage = "will";
-                newclass = 'good';
-            }
-            else{
-                statusmessage = "will not";
-                newclass = 'bad';
+            if($.inArray(usergrade, validGPAgrades) >= 0){
+                termpoints += lettergrade * credits;
+                gpacredits += credits;
             }
         }
         else{
-            if(finalcompletionrate < 67.0 || finalgpa < 2.0){
-                statusmessage = "will not";
-                newclass = 'bad';
-            }
-            else{
-                statusmessage = "will";
-                newclass = 'good';
+            empty = true;
+            $(this).find('input:gt(1)').each(function(){
+                if($(this).val() !== ''){
+                    empty = false;
+                }
+            });
+            if(!empty){
+                $(this).css("background-color","#fc6666");
             }
         }
-        $('#standing').html("Based on your projections for the term(s) above, you <strong>" + statusmessage + "</strong> meet financial aid SAP standards.");
+
+        avg = termpoints / gpacredits;
+        if(termattempted > 0){
+            $('#sap-courses .completionterm').text("Your projected completion rate for this term is " + ((termpassed / termattempted) * 100).toFixed(2) + "%");
+        }
+        else
+            $('#sap-courses .completionterm').text("Your projected completion rate for this term is ");
+        if(gpacredits >0){
+            $('#sap-courses .gpaterm').text("Your projected GPA for this term is " + avg.toFixed(2));
+        }
+        else
+            $('#sap-courses .gpaterm').text("Your projected GPA for this term is ");
+    });
+    if(termattempted + termpassed > 0){
+        if((((termpassed / termattempted) * 100).toFixed(2) < 66.666666) || avg.toFixed(2) < 2){
+            statusmessage = "will not";
+            newclass = 'bad';
+        }
+        else{
+            statusmessage = "will";
+            newclass = 'good';
+        }
+        $('#standing').html("Based on your projections for the term(s) above, you <strong>" + statusmessage + "</strong> meet APS standards.");
         $('#standing').attr('class',newclass);
     }
 }
