@@ -92,7 +92,7 @@ function calculate(){
     //grades that count toward passed hours
     validPassed = ['a', 'b', 'c', 'd', 'a+', 'b+', 'c+', 'd+','a-', 'b-', 'c-', 'd-', 'p'];
     validGPAgrades = ['a', 'b', 'c', 'd', 'a+', 'b+', 'c+', 'd+','a-', 'b-', 'c-', 'd-', 'f'];//also counts as quality point grades
-    validAttempted = ['a', 'b', 'c', 'd', 'a+', 'b+', 'c+', 'd+','a-', 'b-', 'c-', 'd-', 'p', 'nc', 'np', 'i','u','f','*'];
+    validAttempted = ['a', 'b', 'c', 'd', 'a+', 'b+', 'c+', 'd+','a-', 'b-', 'c-', 'd-', 'p', 'nc', 'np', 'i', 'u', 'f', '*', 'w'];
     projectedPassed = totalpassed;
     projectedAttempted = totalattempted;
     projectedPoints = 0;
