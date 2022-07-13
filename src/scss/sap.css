@@ -7,7 +7,6 @@
 
 html {
   margin: 2rem 26rem;
-  
   overflow-x: hidden;
 }
 
@@ -15,46 +14,33 @@ html {
   width: 7em;
 }
 
-#sap-form {
-  table {
-    tbody {
-      th {
-        background-color: transparent !important;
-      }
-    }
-
-    tr {
-      background-color: transparent !important;
-    }
-
-    th {
-      border: none;
-      font-weight: bold;
-    }
-
-    input {
-      width: 5em;
-    }
-  }
+#sap-form table tbody th {
+  background-color: transparent !important;
+}
+#sap-form table tr {
+  background-color: transparent !important;
+}
+#sap-form table th {
+  border: none;
+  font-weight: bold;
+}
+#sap-form table input {
+  width: 5em;
 }
 
-.alert {
+.alert, .good, .bad, #totalInstError, #totalTransError {
   padding: 15px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
 
-.bad {
-  @extend .alert;
-  // this is the non-standard bootstrap text color, to increase constrast
+.bad, #totalInstError, #totalTransError {
   color: #893432;
   background-color: #f2dede;
   border-color: #ebccd1;
 }
 
 .good {
-  @extend .alert;
-  // this is the non-standard bootstrap text color, to increase constrast
   color: #1c561d;
   background-color: #dff0d8;
   border-color: #d6e9c6;
@@ -62,22 +48,17 @@ html {
 
 #totalInstError, #totalTransError {
   display: none;
-  @extend .bad;
 }
 
-#sap-courses {
-  fieldset tbody tr:nth-child(2n),
-  input {
-    background-color: inherit;
-  }
+#sap-courses fieldset tbody tr:nth-child(2n),
+#sap-courses input {
+  background-color: inherit;
 }
 
-#sap-understand {
-  td,
-  th {
-    text-align: center;
-    vertical-align: middle; 
-  }
+#sap-understand td,
+#sap-understand th {
+  text-align: center;
+  vertical-align: middle;
 }
 
 /* Following styles are provided through our Drupal theme, but are
@@ -100,19 +81,19 @@ html {
 }
 
 ol {
-  list-style-type:none;
+  list-style-type: none;
 }
 
- h2 {
-    color: orange;
-    font-size: 35px;
-    margin: 0 0 0.4em 0;
- }
+h2 {
+  color: orange;
+  font-size: 35px;
+  margin: 0 0 0.4em 0;
+}
 
- .border2 {
-  background-color:blue;
- }
+.border2 {
+  background-color: blue;
+}
 
- .container {
+.container {
   display: grid;
- }
+}/*# sourceMappingURL=sap.css.map */

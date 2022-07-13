@@ -3,21 +3,22 @@
 <head>
     <meta charset="utf-8">
     <title>SAP Calculator</title>
-    <link rel="stylesheet" href="sap.min.css">
+    <link rel="stylesheet" href="../scss/sap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
     <h2>Satisfactory Academic Progress Calculator</h2>
     <noscript>If you do not have JavaScript support, please <a href="/esfs/contact">contact ESFS</a> for additional help</noscript>
-    <p>This calculator will help you project your cumulative completion rate and cumulative GPA, as measured by Financial Aid SAP Standards. You will need to pull information from your unofficial Lane credit transcript. Your transcript can be accessed in myLane under the myEnrollment tab. <a href="/node/5374">Learn more about interpreting your transcript.</a></p>
-    <p>Please note that credits you have passed repeatedly that cannot be counted more than once toward your program of study are <strong>excluded</strong> from your passed credits. However, they are <strong>included</strong> in your attempted credits. <strong>Check the "repeated course" box if BOTH of the following conditions apply</strong>:</p>
+    <p>This calculator will help you project your cumulative completion rate and cumulative GPA, as measured by Financial Aid SAP Standards. You will need to pull information from your unofficial Lane credit transcript. Your transcript can be accessed in myLane under the myEnrollment tab. <a href="/node/5374">Learn more about interpreting your transcript.</a></p><br>
+    <p>Please note that credits you have passed repeatedly that cannot be counted more than once toward your program of study are <strong>excluded</strong> from your passed credits. However, they are <strong>included</strong> in your attempted credits. <strong>Check the "repeated course" box if BOTH of the following conditions apply</strong>:</p><br>
     <ol>
-    <li>You've earned credit for this course in the past (i.e., received a grade of 'D-' or higher or 'P') and</li>
-    <li>This course is not marked as "Repeatable" in the course catalog for your program.</li>
-    </ol>
-    <p><strong>IMPORTANT</strong>: While this calculator will provide you with your term completion rate and term GPA, this is for your information only and is not a measurement of SAP. Your cumulative results will appear in the colored box below.</p>
+    <li>1. You've earned credit for this course in the past (i.e., received a grade of 'D-' or higher or 'P') and</li>
+    <li>2. This course is not marked as "Repeatable" in the course catalog for your program.</li>
+    </ol><br>
+    <p><strong>IMPORTANT</strong>: While this calculator will provide you with your term completion rate and term GPA, this is for your information only and is not a measurement of SAP. Your cumulative results will appear in the colored box below.</p><br>
+    <div class="container">
     <form id="sap-form" action="#">
-        <table id="insttable" class="non-responsive">
+        <table id="insttable">
             <thead>
                 <tr>
                     <th></th>
@@ -55,7 +56,7 @@
         <div id="sap-courses">
             <fieldset style="border:black solid 1px;padding:0 7px 0 7px;">  
                 <legend style="font-size:150%">This Term</legend>
-                <table class="non-responsive">
+                <table>
                     <thead>
                         <tr>
                             <th>Course</th>
@@ -109,6 +110,7 @@
         <br />
         <button id="fakebutton">Calculate Now</button>
     </form>
+    </div>
     <div class="full">
         <div id="results" class="notice half">
             <h3>SAP Results</h3><br />
