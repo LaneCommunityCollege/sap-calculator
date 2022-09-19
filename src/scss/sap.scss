@@ -3,39 +3,109 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
 }
 
+body {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1em;
+}
+//Variables for school colors.
+$primarySchoolColor: #ea6e07;
+$secondarySchoolColor: #20588c;
+$contrastingHeaderColor: white;
+
+.transparentHeaderCell {
+  background-color: transparent;
+  font-weight:bold;
+  border:none;
+}
+
+.custom-field input {
+  border: 1px solid black;
+  appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #f2f2f2;
+  padding: 6px;
+  border-radius: 3px;
+  width: 250px;
+  outline: none;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
+input::placeholder {
+  color: #222;
+  transition: color 0.3s ease;
+}
+
+
 html {
-  margin: 2rem 26rem;
-  
   overflow-x: hidden;
 }
 
-#insttable input {
-  width: 7em;
+.fontsize {
+  font-size:150%;
 }
 
-#sap-form {
+
+.width{
+  width: 13em;
+}
+.padding {
+  padding: 1em 0 1em 0;
+}
+
+fieldset {
+  border: black solid 1px; 
+  padding: 0 7px 1em;
+  
+}
+
+.sap-form {
   table {
+    border-collapse: collapse;
+    width: 100%;
     tbody {
       th {
         background-color: transparent !important;
       }
     }
-
+ 
+    thead {
+      background-color: $secondarySchoolColor;
+      color: $contrastingHeaderColor;
+    }
     tr {
       background-color: transparent !important;
     }
 
     th {
-      border: none;
+      border: solid black 0px;
+      border-collapse: collapse;
       font-weight: bold;
+      padding: 5px 10px 5px 10px;
     }
+    
+    
 
-    input {
-      width: 5em;
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
   }
+}
+
+.inputStyles {
+  border: 1px black solid;
+  padding: 2px;
+  margin: 0 5px 0 0;
+  box-shadow: 1px 1px grey;
 }
 
 .alert {
@@ -60,23 +130,33 @@ html {
   border-color: #d6e9c6;
 }
 
-#totalInstError, #totalTransError {
+.buttonStyle {
+  padding: 3.2px; 
+  margin: 3.2px;
+  border-radius: 7.5px;
+  border: grey solid 1px;
+  box-shadow: 1px 1px;
+}
+
+.totalInstError, .totalTransError {
   display: none;
   @extend .bad;
 }
 
-#sap-courses {
+.sap-courses {
   fieldset tbody tr:nth-child(2n),
   input {
     background-color: inherit;
   }
 }
 
-#sap-understand {
+.sap-understand {
   td,
   th {
+    border: solid black 1px;
     text-align: center;
     vertical-align: middle; 
+    padding: 3.2px;
   }
 }
 
@@ -84,11 +164,11 @@ html {
    provided here because they're particularly useful. element-invisible, 
    for example, is used to make labels are that are readable by screenreaders.*/
 .element-invisible {
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  overflow: hidden;
-  position: absolute !important;
-}
+   clip: rect(1px, 1px, 1px, 1px);
+   height: 1px;
+   overflow: hidden;
+   position: absolute !important;
+ }
 
 .notice {
   background-color: #FFF7B5;
@@ -103,16 +183,13 @@ ol {
   list-style-type:none;
 }
 
- h2 {
-    color: orange;
-    font-size: 35px;
-    margin: 0 0 0.4em 0;
- }
+h2 {
+  color: $primarySchoolColor;
+  font-size: 35px;
+  margin: 0 0 0.4em 0;
+}
 
- .border2 {
-  background-color:blue;
- }
 
- .container {
+.container {
   display: grid;
- }
+}

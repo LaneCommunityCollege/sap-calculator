@@ -8,17 +8,17 @@
 </head>
 <body>
     <h2>Satisfactory Academic Progress Calculator</h2>
-    <noscript>If you do not have JavaScript support, please <a href="/esfs/contact">contact ESFS</a> for additional help</noscript>
-    <p>This calculator will help you project your cumulative completion rate and cumulative GPA, as measured by Financial Aid SAP Standards. You will need to pull information from your unofficial Lane credit transcript. Your transcript can be accessed in myLane under the myEnrollment tab. <a href="/node/5374">Learn more about interpreting your transcript.</a></p><br>
+    <noscript>If you do not have JavaScript support, please <a href="https://www.lanecc.edu/administration/enrollment-services">contact ESFS</a> for additional help</noscript>
+    <p>This calculator will help you project your cumulative completion rate and cumulative GPA, as measured by Financial Aid SAP Standards. You will need to pull information from your unofficial Lane credit transcript. Your transcript can be accessed in myLane under the myEnrollment tab. <a href="https://www.lanecc.edu/administration/enrollment-services/interpret-your-transcript">Learn more about interpreting your transcript.</a></p><br>
     <p>Please note that credits you have passed repeatedly that cannot be counted more than once toward your program of study are <strong>excluded</strong> from your passed credits. However, they are <strong>included</strong> in your attempted credits. <strong>Check the "repeated course" box if BOTH of the following conditions apply</strong>:</p><br>
     <ol>
     <li>1. You've earned credit for this course in the past (i.e., received a grade of 'D-' or higher or 'P') and</li>
     <li>2. This course is not marked as "Repeatable" in the course catalog for your program.</li>
     </ol><br>
-    <p><strong>IMPORTANT</strong>: While this calculator will provide you with your term completion rate and term GPA, this is for your information only and is not a measurement of SAP. Your cumulative results will appear in the colored box below.</p><br>
+    <p><strong>Important</strong>: While this calculator will provide you with your term completion rate and term GPA, this is for your information only and is not a measurement of SAP. Your cumulative results will appear in the colored box below.</p><br>
     <div class="container">
-    <form id="sap-form" action="#">
-        <table id="insttable">
+    <form class="sap-form" action="#">
+        <table>
             <thead>
                 <tr>
                     <th></th>
@@ -31,12 +31,12 @@
             <tbody>
                 <tr>
                     <th>Total Institution</th>
-                    <td><label for='instattemptedhrs' class='element-invisible'></label><input type="text" name="instattemptedhrs" id="instattemptedhrs" size="6" value="0" /></td>
+                    <td><label for='instattemptedhrs' class='element-invisible'></label><input type="text" name="instattemptedhrs" id="instattemptedhrs" size="6" value="0" placeholder="text"/></td>
                     <td><label for='instpassedhrs' class='element-invisible'></label><input type="text" name="instpassedhrs" id="instpassedhrs" size="6" value="0" /></td>
                     <td><label for='instgpahrs' class='element-invisible'></label><input type="text" name="instgpahrs" id="instgpahrs" size="6" value="0" /></td>
                     <td><label for='instqualpoints' class='element-invisible'></label><input type="text" name="instqualpoints" id="instqualpoints" size="6" value="0" /></td>
                 </tr>
-                <tr><td colspan=5><div id='totalInstError' role='alert'></div></td></tr>
+                <tr><td colspan=5><div class='totalInstError' role='alert'></div></td></tr>
                 <tr>
                     <th>Total Transfer</th>
                     <td><label for='transattemptedhrs' class='element-invisible'></label><input type="text" size="6" id="transattemptedhrs" name="transattemptedhrs" value="0" /></td>
@@ -44,18 +44,18 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
-                <tr><td colspan=5><div id='totalTransError' role='alert'></div></td></tr>
+                <tr><td colspan=5><div class='totalTransError' role='alert'></div></td></tr>
                 <tr>
-                    <th style="background-color:transparent; font-weight:bold;border:none">Totals:</th>
-                    <td><span id="totalAttempted">0</span></td>
-                    <td><span id="totalPassed">0</span></td>
-                    <td colspan="2"><div id="curGPA"><strong>Current Cumulative GPA:</strong></div></td>
+                    <th class="transparentHeaderCell">Totals:</th>
+                    <td><span class="totalAttempted">0</span></td>
+                    <td><span class="totalPassed">0</span></td>
+                    <td colspan="2"><div class="curGPA"><strong>Current Cumulative GPA:</strong></div></td>
                 </tr>
             </tbody>
         </table>
-        <div id="sap-courses">
-            <fieldset style="border:black solid 1px;padding:0 7px 0 7px;">  
-                <legend style="font-size:150%">This Term</legend>
+        <div class="sap-courses">
+            <fieldset>  
+                <legend class="fontsize">This Term</legend>
                 <table>
                     <thead>
                         <tr>
@@ -68,36 +68,36 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><label><span class='element-invisible'>Course Name</span><input type="text" value="Course 1" style="width:13em"/></label></td>
+                            <td><label><span class='element-invisible'>Course Name</span><input type="text" class="inputStyles" value="Course 1" style="width:13em"/></label></td>
                             <td><label><span class='element-invisible'>Repeated Course</span><input type="checkbox"/></label></td>
-                            <td><label><span class='element-invisible'>Course Grade</span><input type="text"/></label></td>
-                            <td><label><span class='element-invisible'>Course Credits</span><input type="text"/></label></td>
-                            <td><label><span class='element-invisible'>Delete Row</span><button class='delete-button'>X</button></label></td>
+                            <td><label><span class='element-invisible'>Course Grade</span><input type="text" class="inputStyles"/></label></td>
+                            <td><label><span class='element-invisible'>Course Credits</span><input type="text" class="inputStyles"/></label></td>
+                            <td><label><span class='element-invisible'>Delete Row</span><button class='delete-button buttonStyle'>X</button></label></td>
                         </tr>
                         <tr>
-                            <td><label><span class='element-invisible'>Course Name</span><input type="text" value="Course 2" style="width:13em"/></label></td>
+                            <td><label><span class='element-invisible'>Course Name</span><input type="text" class="inputStyles" value="Course 2" style="width:13em"/></label></td>
                             <td><label><span class='element-invisible'>Repeated Course</span><input type="checkbox"/></label></td>
-                            <td><label><span class='element-invisible'>Course Grade</span><input type="text"/></label></td>
-                            <td><label><span class='element-invisible'>Course Credits</span><input type="text"/></label></td>
-                            <td><label><span class='element-invisible'>Delete Row</span><button class='delete-button'>X</button></label></td>
+                            <td><label><span class='element-invisible'>Course Grade</span><input type="text" class="inputStyles"/></label></td>
+                            <td><label><span class='element-invisible'>Course Credits</span><input type="text" class="inputStyles"/></label></td>
+                            <td><label><span class='element-invisible'>Delete Row</span><button class='delete-button buttonStyle'>X</button></label></td>
                         </tr>
                         <tr>
-                            <td><label><span class='element-invisible'>Course Name</span><input type="text" value="Course 3" style="width:13em"/></label></td>
+                            <td><label><span class='element-invisible'>Course Name</span><input type="text" class="inputStyles" value="Course 3" style="width:13em"/></label></td>
                             <td><label><span class='element-invisible'>Repeated Course</span><input type="checkbox"/></label></td>
-                            <td><label><span class='element-invisible'>Course Grade</span><input type="text"/></label></td>
-                            <td><label><span class='element-invisible'>Course Credits</span><input type="text"/></label></td>
-                            <td><label><span class='element-invisible'>Delete Row</span><button class='delete-button'>X</button></label></td>
+                            <td><label><span class='element-invisible'>Course Grade</span><input type="text" class="inputStyles"/></label></td>
+                            <td><label><span class='element-invisible'>Course Credits</span><input type="text" class="inputStyles"/></label></td>
+                            <td><label><span class='element-invisible'>Delete Row</span><button class='delete-button buttonStyle'>X</button></label></td>
                         </tr>
                         <tr>
-                            <td><label><span class='element-invisible'>Course Name</span><input type="text" value="Course 4" style="width:13em"/></label></td>
+                            <td><label><span class='element-invisible'>Course Name</span><input type="text" class="inputStyles" value="Course 4" style="width:13em"/></label></td>
                             <td><label><span class='element-invisible'>Repeated Course</span><input type="checkbox"/></label></td>
-                            <td><label><span class='element-invisible'>Course Grade</span><input type="text"/></label></td>
-                            <td><label><span class='element-invisible'>Course Credits</span><input type="text"/></label></td>
-                            <td><label><span class='element-invisible'>Delete Row</span><button class='delete-button'>X</button></label></td>
+                            <td><label><span class='element-invisible'>Course Grade</span><input type="text" class="inputStyles"/></label></td>
+                            <td><label><span class='element-invisible'>Course Credits</span><input type="text" class="inputStyles"/></label></td>
+                            <td><label><span class='element-invisible'>Delete Row</span><button class='delete-button buttonStyle'>X</button></label></td>
                         </tr>
                     </tbody>
                 </table>
-                <button class="newrow">Add another class</button>
+                <button class="buttonStyle addCourse">Add another class</button>
                 <div>
                     <span class="gpaterm">Your projected GPA for this term is: </span>
                 </div>
@@ -105,29 +105,27 @@
                     <span class="completionterm">Your projected completion rate for this term is: </span>
                 </div>
             </fieldset>
-            <button id="newterm">Add another term</button>
+            <button id= "newterm" class="buttonStyle">Add another term</button>
+            <br />
+            <button id="fakebutton" class="buttonStyle">Calculate Now</button>
+        </form>
         </div>
-        <br />
-        <button id="fakebutton">Calculate Now</button>
-    </form>
     </div>
-    <div class="full">
-        <div id="results" class="notice half">
+        <div id="results" class="notice">
             <h3>SAP Results</h3><br />
-            <strong>Projected Attempted Hours:</strong> <span id='resultTotalAttempted'>&nbsp;</span><br>
-            <strong>Projected Passed Hours:</strong> <span id='resultTotalPassed'>&nbsp;</span><br>
-            <strong>Projected Completion Rate:</strong> <span id='resultCompletionRate'>&nbsp;</span><br>
-            <strong>Projected New Cumulative GPA:</strong> <span id='resultNewGPA'>&nbsp;</span><br>
-            <div id="standing">&nbsp;</div>
+            <strong>Projected Attempted Hours:</strong> <span class='resultTotalAttempted'>&nbsp;</span><br>
+            <strong>Projected Passed Hours:</strong> <span class='resultTotalPassed'>&nbsp;</span><br>
+            <strong>Projected Completion Rate:</strong> <span class='resultCompletionRate'>&nbsp;</span><br>
+            <strong>Projected New Cumulative GPA:</strong> <span class='resultNewGPA'>&nbsp;</span><br>
+            <div class="standing">&nbsp;</div>
         </div>
-    </div>
-    <div style="padding: 1em 0 1em 0;">
+    <div class="padding">
         <h3>Understanding Your Results</h3>
-        <table id="sap-understand" width="50%" border="1">
+        <table class="sap-understand">
             <thead>
                 <tr>
                     <th>At the end of the term, if your cumulative attempted hours total:</th>
-                    <th width="38%">To meet the cumulative completion rate requirement, you must pass:</th>
+                    <th>To meet the cumulative completion rate requirement, you must pass:</th>
                     <th>To meet the cumulative GPA requirement, your Lane GPA must be:</th>
                 </tr>
             </thead>
@@ -146,6 +144,6 @@
         </table>
         <p>For more detail, visit the <a href="/node/2667">Lane SAP page</a></p>
     </div>
-    <script src="sap.min.js"></script>
+    <script src="../js/sap.js"></script>
 </body>
 </html>

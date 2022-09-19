@@ -10,6 +10,9 @@ This calculator will also do Academic Progress Standards Calculation, based on L
 
 Use
 ---
+
+Change SCSS variables to reflect school colors.
+
 Though you're encouraged to follow the development instructions below, minimized files are available in the `dist` directory.
 
 Be sure to update the text in the sap.html file to reflect your needs, as well as look through the sap.js file to make sure the grades reflect those at your institution. In particular, in addition to updating any text that's Lane specific, be sure to properly set the noscript text, as there's a potential for an accessibility issue if someone is unable to access this via JavaScript.
