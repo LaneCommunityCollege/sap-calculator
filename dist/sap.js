@@ -1,4 +1,4 @@
-let sapContainer = document.querySelector(".sap-courses");
+(function($){ let sapContainer = document.querySelector(".sap-courses");
 sapContainer.addEventListener('click', function(event){
     if (event.target.classList.contains('addCourse')){
         event.preventDefault();
@@ -50,6 +50,7 @@ document.getElementById('newterm').addEventListener('click', function(event){
 });
 
 function calculate(){
+
     let values = {};
     let values2 = document.querySelectorAll('.sap-form input[type="text"]');
     values2.forEach(v => values[v.name] = v.value);
@@ -111,6 +112,7 @@ function calculate(){
     projectedAttempted = totalAttempted;
     projectedPoints = 0;
     projectedGPAHours = 0;
+
 
     
     //loop through rows of each term, adding (grade, credits, and computing points)
@@ -214,3 +216,4 @@ function calculate(){
         document.getElementsByClassName('standing')[0].classList.add(newClass);
     }
 }
+ })(jQuery);

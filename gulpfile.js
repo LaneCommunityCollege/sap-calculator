@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
     rename = require('gulp-rename'),
     minifyCSS = require('gulp-clean-css'),
-    uglify = require('gulp-uglify'),
+    minify = require('gulp-minify'),
     del = require('del'),
     wrap = require('gulp-wrap'),
     compass = require('gulp-compass');
@@ -24,8 +24,7 @@ gulp.task('minify-css', function(){
 gulp.task('compress', function(){
   return gulp.src('src/js/sap.js')
     .pipe(wrap('(function($){ <%= contents %> })(jQuery);'))
-    .pipe(uglify())
-    .pipe(rename({suffix:".min"}))
+    .pipe(minify())
     .pipe(gulp.dest('dist'));
 });
 
