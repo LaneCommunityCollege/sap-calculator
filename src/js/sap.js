@@ -50,7 +50,6 @@ document.getElementById('newterm').addEventListener('click', function(event){
 });
 
 function calculate(){
-
     let values = {};
     let values2 = document.querySelectorAll('.sap-form input[type="text"]');
     values2.forEach(v => values[v.name] = v.value);
@@ -112,7 +111,6 @@ function calculate(){
     projectedAttempted = totalAttempted;
     projectedPoints = 0;
     projectedGPAHours = 0;
-
 
     
     //loop through rows of each term, adding (grade, credits, and computing points)

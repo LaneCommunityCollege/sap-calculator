@@ -10,7 +10,6 @@ This calculator will also do Academic Progress Standards Calculation, based on L
 
 Use
 ---
-
 Change SCSS variables to reflect school colors.
 
 Though you're encouraged to follow the development instructions below, minimized files are available in the `dist` directory.
