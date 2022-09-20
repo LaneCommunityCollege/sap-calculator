@@ -8,13 +8,13 @@
     "url": "https://github.com/LaneCommunityCollege/sap-calculator"
   },
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "del": "^6.1.1",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-cli": "^2.3.0",
     "gulp-compass": "^2.1.0",
+    "gulp-minify": "^3.1.0",
     "gulp-rename": "^2.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-wrap": "^0.15.0",
