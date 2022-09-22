@@ -24,8 +24,8 @@ sapInputs.forEach(sapInput => sapInput.addEventListener('keyup', function(event)
 }));
 
 // Continuously updates page as user selects checkboxes
-let sapCheckbox = document.querySelectorAll('.sap-form input[type="checkbox"');
-sapCheckbox.forEach(check => check.addEventListener('click', function(){
+let sapCheckboxs = document.querySelectorAll('.sap-form input[type="checkbox"');
+sapCheckboxs.forEach(check => check.addEventListener('click', function(){
     calculate();
 }));
 
@@ -42,9 +42,10 @@ document.getElementById('newterm').addEventListener('click', function(event){
     //add plus 1, because while you and I start counting at 0, most folks start at 1
     let numFieldSets = document.querySelectorAll('fieldset').length + 1;
     clonedFieldSet.querySelector('fieldset legend').innerHTML = 'Term ' + numFieldSets;
-    if(clonedFieldSet.contains(clonedFieldSet.querySelector('fieldset tbody tr:nth-child(n+5)'))){
-        clonedFieldSet.querySelector('fieldset tbody tr:nth-child(n+5)').remove();
-    };
+    let rows = clonedFieldSet.querySelectorAll('tr');
+    for(let i=0;i<rows.length;i++){
+        if(i>4) rows[i].remove();
+    }
     newFieldSet[newFieldSet.length -1].after(clonedFieldSet);
 
 });
@@ -115,7 +116,7 @@ function calculate(){
     
     //loop through rows of each term, adding (grade, credits, and computing points)
     i = 0;
-    $('.sap-courses fieldset').each(function(){
+    document.querySelectorAll('.sap-courses fieldset').forEach(fs => function(){
         var termPoints = 0;
         var termPassed = 0;
         var termAttempted = 0;
