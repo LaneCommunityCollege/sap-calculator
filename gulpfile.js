@@ -23,7 +23,6 @@ gulp.task('minify-css', function(){
 
 gulp.task('compress', function(){
   return gulp.src('src/js/sap.js')
-    .pipe(wrap('(function($){ <%= contents %> })(jQuery);'))
     .pipe(uglify())
     .pipe(rename({suffix:".min"}))
     .pipe(gulp.dest('dist'));

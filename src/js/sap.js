@@ -1,195 +1,220 @@
-$(document).on('click', '.newrow', function(event){
-    event.preventDefault();
-    var newRow = $(this).parent().find('tr:last').clone();
-    newRow.find('input:first').val('Course Name');
-    $(this).parent().find('tr:last').after(newRow);
-});
 
-$(document).on('click', '.delete-button', function(event){
-    event.preventDefault();
-    $(this).parents('tr').remove();
-    calculate();
-});
+document.addEventListener("DOMContentLoaded", function () {
+  function getVal(id) {
+    return parseFloat(document.getElementById(id).value) || 0;
+  }
 
-$(document).on('keyup', '#sap-form input', function(){ calculate();});
+  function calculateInstitutionalAndTransfer() {
+    var attemptedInst = getVal("instattemptedhrs");
+    var passedInst = getVal("instpassedhrs");
+    var gpaInst = getVal("instgpahrs");
+    var qualPointsInst = getVal("instqualpoints");
 
-$(document).on('click', '#sap-form input[type="checkbox"]', function(){ calculate();});
+    var attemptedTrans = getVal("transattemptedhrs");
+    var passedTrans = getVal("transpassedhrs");
 
-$('#fakebutton').click(function(event){
-    event.preventDefault();
-    calculate();
-});
+    var totalAttempted = attemptedInst + attemptedTrans;
+    var totalPassed = passedInst + passedTrans;
 
-$('#newterm').click(function(event){
-    event.preventDefault();
-    var newFieldSet = $(this).parent().find('fieldset:last').clone();
-    //add plus 1, becuase while you and I start counting at 0, most folks start at 1
-    var numFieldSets = $('fieldset').length + 1;
-    newFieldSet.find('legend').text('Term ' + numFieldSets);
-    newFieldSet.find('tr:gt(4)').remove();
-    newFieldSet.find('tr').each(function(){
-        $(this).find('input[type="text"]').val('');
-        $(this).find('input:first').val('Course Name');
-        $(this).find('input:nth-child(2)').removeAttr('checked');
+    document.getElementById("totalAttempted").textContent = totalAttempted;
+    document.getElementById("totalPassed").textContent = totalPassed;
+
+    var cumulativeGPA = gpaInst === 0 ? 0 : (qualPointsInst / gpaInst).toFixed(2);
+    document.getElementById("curGPA").innerHTML =
+      "<strong>Current Cumulative GPA:</strong> " + cumulativeGPA;
+  }
+
+  function updateTermData() {
+    var totalQualityPoints = 0;
+    var totalCredits = 0;
+    var passedCredits = 0;
+    var attemptedCredits = 0;
+
+    document.querySelectorAll("#sap-courses fieldset").forEach(function(fieldset) {
+      var rows = fieldset.querySelectorAll("table tbody tr");
+      var termQPoints = 0;
+      var termCredits = 0;
+      var termPassed = 0;
+      var termAttempted = 0;
+
+      rows.forEach(function (row) {
+        var inputs = row.querySelectorAll("input");
+        var grade = inputs[2].value.toUpperCase().trim();
+        var credits = parseFloat(inputs[3].value) || 0;
+
+        var gradePoints = {
+          A: 4.0, A_MINUS: 3.7, B_PLUS: 3.3, B: 3.0, B_MINUS: 2.7,
+          C_PLUS: 2.3, C: 2.0, C_MINUS: 1.7, D_PLUS: 1.3, D: 1.0, D_MINUS: 0.7,
+          F: 0.0, P: null, NP: null, W: null, I: null, AU: null
+        };
+
+        var normalizedGrade = grade.replace("+", "_PLUS").replace("-", "_MINUS");
+
+        if (gradePoints.hasOwnProperty(normalizedGrade)) {
+          var point = gradePoints[normalizedGrade];
+          if (point !== null) {
+            termQPoints += point * credits;
+            termCredits += credits;
+          }
+
+          if (["A", "B", "C", "D", "P"].some(function (g) { return grade.startsWith(g); })) {
+            termPassed += credits;
+          }
+          termAttempted += credits;
+        }
+      });
+
+      totalQualityPoints += termQPoints;
+      totalCredits += termCredits;
+      passedCredits += termPassed;
+      attemptedCredits += termAttempted;
+
+      var termGPA = termCredits ? (termQPoints / termCredits).toFixed(2) : "0.00";
+      var completionRate = termAttempted
+        ? ((termPassed / termAttempted) * 100).toFixed(1) + "%"
+        : "0%";
+
+      var gpaDisplay = fieldset.querySelector(".gpaterm");
+      var completionDisplay = fieldset.querySelector(".completionterm");
+
+      if (gpaDisplay) {
+        gpaDisplay.textContent = "Your projected GPA for this term is: " + termGPA;
+      }
+      if (completionDisplay) {
+        completionDisplay.textContent = "Your projected completion rate for this term is: " + completionRate;
+      }
     });
 
-    $(this).parent().find('fieldset:last').after(newFieldSet);
-    calculate();
-});
+    var instAttempted = getVal("instattemptedhrs");
+    var instPassed = getVal("instpassedhrs");
+    var instGPAHrs = getVal("instgpahrs");
+    var instQualPts = getVal("instqualpoints");
+    var transAttempted = getVal("transattemptedhrs");
+    var transPassed = getVal("transpassedhrs");
 
-function calculate(){
-    // get an associative array of just the values.
-    var values = {};
-    $('#sap-form :input').each(function() {
-        values[this.name] = $(this).val().toLowerCase();
+    var newAttempted = attemptedCredits + instAttempted + transAttempted;
+    var newPassed = passedCredits + instPassed + transPassed;
+    var newQualPts = totalQualityPoints + instQualPts;
+    var newGPAHrs = totalCredits + instGPAHrs;
+
+    document.getElementById("resultTotalAttempted").textContent = newAttempted;
+    document.getElementById("resultTotalPassed").textContent = newPassed;
+    document.getElementById("resultCompletionRate").textContent =
+      newAttempted ? ((newPassed / newAttempted) * 100).toFixed(1) + "%" : "0%";
+    document.getElementById("resultNewGPA").textContent =
+      newGPAHrs ? (newQualPts / newGPAHrs).toFixed(2) : "0.00";
+
+    var standingElem = document.getElementById("standing");
+    standingElem.classList.remove("good", "bad");
+
+    var standingMessage = "";
+    if (newAttempted >= 1) {
+      var meetsCompletion = (newPassed / newAttempted) * 100 >= 67;
+      var meetsGPA = newAttempted < 17 || (newQualPts / newGPAHrs) >= 2.0;
+
+      var meetsSAP = meetsCompletion && meetsGPA;
+      var statusText = meetsSAP ? "will meet" : "will not meet";
+
+      standingMessage =
+        "Based on your projections for the term(s) above, you <strong>" + statusText + "</strong> financial aid SAP standards.";
+
+      standingElem.classList.add(meetsSAP ? "good" : "bad");
+    }
+
+    standingElem.innerHTML = standingMessage;
+  }
+
+  function triggerAllCalculations() {
+    calculateInstitutionalAndTransfer();
+    updateTermData();
+  }
+
+  function bindRowEvents(row) {
+    var deleteBtn = row.querySelector(".delete-button");
+    if (deleteBtn) {
+      deleteBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        row.remove();
+        triggerAllCalculations();
+      });
+    }
+    row.querySelectorAll("input").forEach(function (input) {
+      input.addEventListener("input", triggerAllCalculations);
     });
+  }
+
+  function bindNewRowButton(button, fieldset) {
+    button.addEventListener("click", function (e) {
+      e.preventDefault();
+      var tbody = fieldset.querySelector("table tbody");
+      var templateRow = tbody.querySelector("tr");
+      if (!templateRow) return;
+
+      var clone = templateRow.cloneNode(true);
+      clone.querySelectorAll("input").forEach(function (input) {
+        if (input.type === "text") input.value = "";
+        if (input.type === "checkbox") input.checked = false;
+      });
+
+      bindRowEvents(clone);
+      tbody.appendChild(clone);
+      triggerAllCalculations();
+    });
+  }
+
+  function setupFieldset(fieldset) {
+    fieldset.querySelectorAll("tr").forEach(bindRowEvents);
+    var newRowBtn = fieldset.querySelector(".newrow");
+    if (newRowBtn) bindNewRowButton(newRowBtn, fieldset);
+  }
+
+  document.querySelectorAll("#sap-courses fieldset").forEach(setupFieldset);
+
+  document.getElementById("newterm").addEventListener("click", function (e) {
+    e.preventDefault();
+
+    var firstFieldset = document.querySelector("#sap-courses fieldset");
+    if (!firstFieldset) return;
+
+    var newFieldset = firstFieldset.cloneNode(true);
+
+    newFieldset.querySelectorAll("input").forEach(function (input) {
+      if (input.type === "text") input.value = "";
+      if (input.type === "checkbox") input.checked = false;
+    });
+
+    setupFieldset(newFieldset);
     
-    var gpatable = {};
-    gpatable['a+'] = 4.3;
-    gpatable['a'] = 4.0;
-    gpatable['a-'] = 3.7;
-    gpatable['b+'] = 3.3;
-    gpatable['b'] = 3.0;
-    gpatable['b-'] = 2.7;
-    gpatable['c+'] = 2.3;
-    gpatable['c'] = 2.0;
-    gpatable['c-'] = 1.7;
-    gpatable['d+'] = 1.3;
-    gpatable['d'] = 1.0;
-    gpatable['d-'] = 0.7;
-    gpatable['f'] = 0.0;
-
-    if(parseFloat(values['instattemptedhrs']) < parseFloat(values['instpassedhrs'])){
-        $('#totalInstError').text("Passed can't be greater than attempted!").show()
+    // Update the fieldset legend to indicate the term number
+    var termCount = document.querySelectorAll("#sap-courses fieldset").length + 1;
+    var legend = newFieldset.querySelector("legend");
+    if (legend) {
+      legend.textContent = "Term " + termCount;
     }
-    else if(parseFloat(values['instattemptedhrs']) != values['instattemptedhrs'] || parseFloat(values['instpassedhrs']) != values['instpassedhrs']){
-        $('#totalInstError').text("Make sure you're only using numbers").show();
-    }
-    else{
-        $('#totalInstError').hide();
-    }
-    if(parseFloat(values['transattemptedhrs']) < parseFloat(values['transpassedhrs'])){
-        $('#totalTransError').text("Passed can't be greater than attempted!").show();
-    }
-    else if(parseFloat(values['transattemptedhrs']) != values['transattemptedhrs'] || parseFloat(values['transpassedhrs']) != values['transpassedhrs']){
-        $('#totalTransError').text("Make sure you're only using numbers").show();
-    }
-    else{
-        $('#totalTransError').hide();
+    
+    var sapCourses = document.getElementById("sap-courses");
+    var lastFieldset = sapCourses.querySelector("fieldset:last-of-type");
+    if (lastFieldset && lastFieldset.nextSibling) {
+      sapCourses.insertBefore(newFieldset, lastFieldset.nextSibling);
+    } else {
+      sapCourses.appendChild(newFieldset);
     }
 
-    totalattempted = parseFloat(values['instattemptedhrs']) + parseFloat(values['transattemptedhrs']);
-    totalpassed = parseFloat(values['instpassedhrs']) + parseFloat(values['transpassedhrs']);
-    instgpahours = parseFloat(values['instgpahrs']);
-    qualpoints = parseFloat(values['instqualpoints']);
 
-    $('#totalAttempted').text(totalattempted);
-    $('#totalPassed').text(totalpassed);
-    if(qualpoints > 0 && instgpahours > 0){
-        $('#curGPA').html("<strong>Current Cumulative GPA:</strong> " + (qualpoints / instgpahours).toFixed(3));
+    triggerAllCalculations();
+  });
+
+  document.getElementById("fakebutton").addEventListener("click", function (e) {
+    e.preventDefault();
+    triggerAllCalculations();
+  });
+
+  ["totalInstError", "totalTransError", "curGPA", "resultTotalAttempted", "resultTotalPassed", "resultCompletionRate", "resultNewGPA", "standing"].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el && !el.hasAttribute("aria-live")) {
+      el.setAttribute("aria-live", "polite");
     }
+  });
 
-    //grades that count toward passed hours
-    validPassed = ['a', 'b', 'c', 'd', 'a+', 'b+', 'c+', 'd+','a-', 'b-', 'c-', 'd-', 'p'];
-    validGPAgrades = ['a', 'b', 'c', 'd', 'a+', 'b+', 'c+', 'd+','a-', 'b-', 'c-', 'd-', 'f'];//also counts as quality point grades
-    validAttempted = ['a', 'b', 'c', 'd', 'a+', 'b+', 'c+', 'd+','a-', 'b-', 'c-', 'd-', 'p', 'nc', 'np', 'i', 'u', 'f', '*', 'w'];
-    projectedPassed = totalpassed;
-    projectedAttempted = totalattempted;
-    projectedPoints = 0;
-    projectedGPAHours = 0;
-
-    //loop through rows of each term, adding (grade, credits, and computing points)
-    i = 0;
-    $('#sap-courses fieldset').each(function(){
-        var termpoints = 0;
-        var termpassed = 0;
-        var termattempted = 0;
-        var gpacredits = 0;
-        $(this).find('.gpaterm').text("Your projected GPA for this term is ");
-        $(this).find('tr:gt(0)').each(function(){
-            repeated = $(this).find('td:nth-child(2) input').is(':checked');
-            usergrade = $(this).find('td:nth-child(3) input').val().toLowerCase();
-            usercredits = $(this).find('td:nth-child(4) input').val();
-            //Make sure the row validates
-            if(usergrade !== '' && usercredits !== '' && parseFloat(usercredits) == usercredits && $.inArray(usergrade, validAttempted) >= 0 && parseFloat(usercredits)>0){
-                //set this to a white row
-                $(this).css("background-color","white");
-                lettergrade = gpatable[usergrade];
-                credits = parseFloat(usercredits);
-                //if that grade counts as a passed grade, let's add it to our projected passed hours
-                if($.inArray(usergrade, validPassed) >= 0 && !repeated){
-                    termpassed += credits;
-                }
-                if($.inArray(usergrade, validAttempted) >= 0){
-                    termattempted += credits;   
-                }
-                if($.inArray(usergrade, validGPAgrades) >= 0){
-                    termpoints += lettergrade * credits;
-                    gpacredits += credits;
-                }
-                i++;
-            }
-            else{
-                empty = true;
-                $(this).find('input:gt(1)').each(function(){
-                    if($(this).val() !== ''){
-                        empty = false;
-                    }
-                });
-                if(!empty){
-                    $(this).css("background-color","#fc6666");
-                }
-            }
-        });
-        projectedPassed += termpassed;
-        projectedAttempted += termattempted;
-        projectedPoints += termpoints;
-        projectedGPAHours += gpacredits;
-        avg = termpoints / gpacredits;
-        if(termattempted > 0){
-            $(this).find('.completionterm').text("Your projected completion rate for this term is " + ((termpassed / termattempted) * 100).toFixed(2) + "%");
-        }
-        else
-            $(this).find('.completionterm').text("Your projected completion rate for this term is ");
-        if(gpacredits >0){
-            $(this).find('.gpaterm').text("Your projected GPA for this term is " + avg.toFixed(2));
-        }
-        else
-            $(this).find('.gpaterm').text("Your projected GPA for this term is ");
-    });
-    if(i + totalattempted + totalpassed > 0){
-        //figure out Projected Atttempted Hours
-        $('#resultTotalAttempted').text(projectedAttempted);
-        //figure out Projected Passed Hours
-        $('#resultTotalPassed').text(projectedPassed);
-        //display projected completion rate
-        finalcompletionrate = (projectedPassed / projectedAttempted) * 100;
-        $('#resultCompletionRate').text(finalcompletionrate.toFixed(2) + "%");
-        if((projectedGPAHours + instgpahours) > 0){
-            finalgpa = (projectedPoints + qualpoints) / (projectedGPAHours + instgpahours);
-            $('#resultNewGPA').text(finalgpa.toFixed(3));
-        }
-        if(projectedAttempted < 17){
-            if(finalcompletionrate >= 67.0){
-                statusmessage = "will";
-                newclass = 'good';
-            }
-            else{
-                statusmessage = "will not";
-                newclass = 'bad';
-            }
-        }
-        else{
-            if(finalcompletionrate < 67.0 || finalgpa < 2.0){
-                statusmessage = "will not";
-                newclass = 'bad';
-            }
-            else{
-                statusmessage = "will";
-                newclass = 'good';
-            }
-        }
-        $('#standing').html("Based on your projections for the term(s) above, you <strong>" + statusmessage + "</strong> meet financial aid SAP standards.");
-        $('#standing').attr('class',newclass);
-    }
-}
+  triggerAllCalculations();
+});
